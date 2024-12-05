@@ -1,16 +1,34 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
 
 const Sidebar = () => {
   return (
-    <aside className="sidebar">
-      <ul className="menu">
-        <li>Home</li>
-        <li>Feed</li>
-        <li>Profile</li>
-        <li>Settings</li>
+    <div className="sidebar">
+      <ul className="sidebar-menu">
+        <li>
+          <Link to="/" className="sidebar-link">
+            <i className="fas fa-home"></i> Home
+          </Link>
+        </li>
+        <li>
+          <Link to="/feed" className="sidebar-link">
+            <i className="fas fa-rss"></i> Feed
+          </Link>
+        </li>
+        <li>
+          <Link to="/profile" className="sidebar-link">
+            <i className="fas fa-user"></i> Profile
+          </Link>
+        </li>
+        <li>
+        <Link to="/settings" className="sidebar-link">
+  <i className="fas fa-cog"></i> Settings
+</Link>
+
+        </li>
       </ul>
-    </aside>
+    </div>
   );
 };
 

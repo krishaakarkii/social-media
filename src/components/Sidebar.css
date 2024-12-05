@@ -1,22 +1,39 @@
 .sidebar {
-  background-color: #FFFFFF; /* White for sidebar */
+  background-color: #ffffff; /* White background */
   padding: 20px;
-  height: calc(100vh - 60px); /* Adjust height for navbar */
-  border-radius: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 220px; /* Fixed width for uniformity */
+  height: 100%;
 }
 
-.menu {
-  list-style: none;
-  padding: 0;
+.sidebar-menu {
+  list-style-type: none; /* Removes bullet points */
+  padding: 0; /* Removes default padding */
+  margin: 0;
 }
 
-.menu li {
-  padding: 10px 0;
-  cursor: pointer;
-  font-size: 18px;
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adds space between icon and text */
+  padding: 12px;
+  margin-bottom: 10px; /* Space between links */
+  color: #3c3c3c; /* Neutral dark text color */
+  font-size: 1rem; /* Uniform font size */
+  font-weight: 500; /* Semi-bold for emphasis */
+  text-decoration: none; /* Removes underline */
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.menu li:hover {
-  color: #FF69B4; /* Pastel pink for hover effect */
+.sidebar-link:hover {
+  background-color: #f0f8ff; /* Light blue hover effect */
+  transform: scale(1.05); /* Subtle pop effect */
+  color: #0077ff; /* Accent color on hover */
+}
+
+.sidebar-link i {
+  font-size: 1.2rem; /* Slightly larger icons */
+  color: #0077ff; /* Icon color matches hover effect */
 }

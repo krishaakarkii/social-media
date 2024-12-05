@@ -22,6 +22,17 @@ router.post('/', verifyToken, async (req, res) => {
   }
 });
 
+//get post
+router.get('/', async (req, res) => {
+  try {
+    const posts = await Post.find().populate('userId', 'username'); // Adjust as needed
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch posts', error: error.message });
+  }
+});
+
+
 // Like a Post
 router.put('/:postId/like', verifyToken, async (req, res) => {
   try {

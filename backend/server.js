@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -5,7 +6,7 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const postRoutes = require('./routes/postRoutes');
-const userRoutes = require('./routes/userRoutes'); // Add this for follow/unfollow and search
+const userRoutes = require('./routes/userRoutes'); // For follow/unfollow and search
 
 dotenv.config();
 
@@ -14,8 +15,14 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Middleware to parse JSON
-app.use(express.json());
+// Middleware
+app.use(cors({
+  origin: 'http://127.0.0.1:5173', // Vite dev server
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
+
+app.use(express.json()); // Middleware to parse JSON
 
 // Test route
 app.get('/', (req, res) => {
@@ -25,7 +32,7 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/auth', authRoutes);
 app.use('/comments', commentRoutes);
-app.use('/posts', postRoutes);
+app.use('/api/posts', postRoutes);
 app.use('/users', userRoutes); // Register user routes
 
 // Port setup

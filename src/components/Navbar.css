@@ -3,35 +3,59 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background: linear-gradient(90deg, #FFD6BA, #FFB5E8); /* Soft pastel gradient */
-  color: #2C2C2C; /* Dark gray text */
+  background: linear-gradient(90deg, #7f9cae, #4b6274); /* Subtle gradient */
+  color: white;
+  height: 30px; /* Fixed height */
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
 .logo {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 1.5rem;
+  font-style: italic;
+  font-family: 'Lora', serif; /* Elegant font for the logo */
 }
 
-.search-bar input {
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 1px solid #E5E5E5; /* Light gray border */
-  outline: none;
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: none; /* Transparent background */
+  border: 2px solid #ffffff; /* White border */
+  border-radius: 20px; /* Slightly less rounded */
+  padding: 3px 8px; /* Decrease padding for a thinner look */
+  width: 250px; /* Adjust width as needed */
 }
 
-.search-bar button {
-  margin-left: 10px;
-  padding: 5px 10px;
+.search-input {
   border: none;
-  background: #FFD6BA; /* Matching pastel for button */
-  color: #2C2C2C;
-  border-radius: 5px;
-  cursor: pointer;
+  outline: none;
+  padding: 5px 10px; /* Reduce padding */
+  font-size: 14px; /* Smaller font size */
+  color: white; /* Dark gray for input text */
+  background: none; /* Transparent background */
+  flex: 1;
 }
 
-.search-bar button:hover {
-  background: #FFB5E8; /* Hover effect */
+.search-input::placeholder {
+  color: #ffffff; /* White placeholder text */
+}
+
+.search-button {
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, #87CEEB, #4682B4); /* Matching gradient to navbar */
+  cursor: pointer;
+  font-size: 14px; /* Smaller button size */
+  color: #ffffff; /* White color for the icon */
+  margin-left: 5px; /* Reduce margin */
+  padding: 3px 8px; /* Decrease padding for smaller button */
+  border-radius: 50%; /* Circular button shape */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button:hover {
+  box-shadow: 0 0 5px rgba(255, 181, 232, 0.8); /* Subtle hover glow effect */
 }

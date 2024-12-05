@@ -5,8 +5,9 @@ import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import Feed from './pages/Feed';
 import Profile from './pages/Profile';
-import Login from './pages/Login';
+import Settings from './pages/Settings';
 import Widgets from './components/Widgets';
+
 import './App.css';
 
 const App = () => {
@@ -21,7 +22,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/feed" element={<Feed />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </main>
           <Widgets />
