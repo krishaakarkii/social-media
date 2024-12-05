@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
-import Profile from './pages/Profile';
 import Feed from './pages/Feed';
+import Profile from './pages/Profile';
 import Login from './pages/Login';
-import './App.css'; // Global CSS for the grid layout
+import Widgets from './components/Widgets';
+import './App.css';
 
 const App = () => {
   return (
@@ -23,10 +24,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
             </Routes>
           </main>
-          <aside className="widgets">
-            <div className="widget-card">Suggested Groups</div>
-            <div className="widget-card">Suggested Friends</div>
-          </aside>
+          <Widgets />
         </div>
       </div>
     </Router>

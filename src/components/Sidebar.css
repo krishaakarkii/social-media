@@ -1,12 +1,9 @@
 .sidebar {
-  background: linear-gradient(to bottom, #282c34, #1a1a1a);
-  color: white;
-  width: 250px;
-  height: calc(100vh - 60px); /* Adjust for navbar height */
+  background-color: #FFFFFF; /* White for sidebar */
   padding: 20px;
-  display: flex;
-  flex-direction: column;
+  height: calc(100vh - 60px); /* Adjust height for navbar */
   border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .menu {
@@ -21,5 +18,5 @@
 }
 
 .menu li:hover {
-  color: #635bff;
+  color: #FF69B4; /* Pastel pink for hover effect */
 }

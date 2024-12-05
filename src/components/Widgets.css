@@ -1,0 +1,13 @@
+.widgets {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .widget-card {
+    background-color: #FFFFFF; /* White for widgets */
+    padding: 15px;
+    border-radius: 10px;
+    color: #2C2C2C; /* Dark gray text */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }

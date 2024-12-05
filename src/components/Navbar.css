@@ -3,21 +3,35 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background: linear-gradient(90deg, #635bff, #282c34);
-  color: white;
+  background: linear-gradient(90deg, #FFD6BA, #FFB5E8); /* Soft pastel gradient */
+  color: #2C2C2C; /* Dark gray text */
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-.navbar .logo {
+.logo {
   font-size: 24px;
   font-weight: bold;
 }
 
-.navbar .search-bar input {
+.search-bar input {
   padding: 5px 10px;
   border-radius: 5px;
-  border: none;
+  border: 1px solid #E5E5E5; /* Light gray border */
   outline: none;
+}
+
+.search-bar button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  background: #FFD6BA; /* Matching pastel for button */
+  color: #2C2C2C;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background: #FFB5E8; /* Hover effect */
 }
