@@ -1,0 +1,25 @@
+.sidebar {
+  background: linear-gradient(to bottom, #282c34, #1a1a1a);
+  color: white;
+  width: 250px;
+  height: calc(100vh - 60px); /* Adjust for navbar height */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  padding: 10px 0;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.menu li:hover {
+  color: #635bff;
+}
