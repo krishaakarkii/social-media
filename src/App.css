@@ -2,14 +2,14 @@
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #fafafa; /* Offwhite background */
+  background: linear-gradient(90deg, #7f9cae, #4b6274);
   color: #333; /* Neutral dark gray text */
   line-height: 1.6;
 }
 
 h1, h2, h3 {
-  font-family: 'Poppins', sans-serif; /* Clean sans-serif font */
-  color: #444; /* Dark gray for headings */
+  font-family: 'Poppins', sans-serif;
+  color: #444; /* Darker gray for headings */
   margin: 0;
 }
 
@@ -19,16 +19,17 @@ a {
 }
 
 a:hover {
-  color: #004999; /* Darker blue for hover */
+  color: #004999; /* Darker blue on hover */
+  text-decoration: underline; /* Subtle underline effect */
 }
 
 /* General Layout */
 .app-container {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
-/* General styles for all screen sizes */
 .layout {
   display: grid;
   grid-template-columns: 250px 1fr 300px; /* Sidebar, Main Content, Widgets */
@@ -38,21 +39,56 @@ a:hover {
   box-sizing: border-box;
 }
 
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #7f9cae, #4b6274);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
 /* Sidebar */
 .sidebar {
-  background-color: #f4f4f4;
+  background: linear-gradient(90deg, #f9f9f9, #ffffff); /* Subtle gradient for cohesion */
   padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
   height: 100%;
 }
 
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  color: #4b6274;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar a:hover {
+  background: rgba(125, 156, 174, 0.1); /* Subtle hover effect */
+  color: #7f9cae; /* Lighter gradient match */
+}
+
+/* Main Content */
 .main-content {
-  background-color: #ffffff;
+  background: linear-gradient(90deg, #ffffff, #f9f9f9); /* Subtle gradient */
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Consistent shadow */
   overflow-y: auto;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Widgets */
@@ -63,27 +99,59 @@ a:hover {
   height: 100%;
 }
 
-/* Responsive adjustments for tablets */
+.widget-card {
+  background: linear-gradient(90deg, #ffffff, #f9f9f9);
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+/* Buttons */
+button {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.primary {
+  background-color: #0066cc;
+  color: white;
+}
+
+button.primary:hover {
+  background-color: #004999;
+}
+
+button.secondary {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+button.secondary:hover {
+  background-color: #e9ecef;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 1024px) {
   .layout {
-    grid-template-columns: 200px 1fr; /* Hide widgets for smaller screens */
-    grid-gap: 15px;
+    grid-template-columns: 200px 1fr; /* Sidebar and Main Content only */
   }
 
   .widgets {
-    display: none; /* Hide widgets on tablets */
-  }
-
-  .sidebar {
-    grid-template-columns: 200px 1fr;
+    display: none; /* Hide widgets */
   }
 }
 
-/* Responsive adjustments for mobile */
 @media (max-width: 768px) {
   .layout {
     display: flex;
-    flex-direction: column; /* Stack sidebar and main content */
+    flex-direction: column;
   }
 
   .sidebar {
@@ -93,17 +161,15 @@ a:hover {
   }
 
   .main-content {
-    width: 100%;
     padding: 10px;
   }
 
   .navbar {
     flex-direction: column;
-    padding: 10px;
+    gap: 10px;
   }
 }
 
-/* Responsive adjustments for very small screens */
 @media (max-width: 480px) {
   .layout {
     padding: 10px;
@@ -118,6 +184,6 @@ a:hover {
   }
 
   .widgets {
-    display: none; /* Widgets hidden completely */
+    display: none;
   }
 }

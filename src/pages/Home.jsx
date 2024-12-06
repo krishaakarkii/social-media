@@ -1,72 +1,111 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import PostCard from "../components/PostCard";
+import { AuthContext } from "../context/AuthContext"; // User Context
 import "./Home.css";
 
 const Home = () => {
+  const { user } = useContext(AuthContext); // Get user data from context
   const [file, setFile] = useState(null);
-  const [tags, setTags] = useState([]);
   const [caption, setCaption] = useState("");
+  const [posts, setPosts] = useState([]);
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
+  const handleFileChange = (event) => setFile(event.target.files[0]);
 
-  const handleTagInput = (event) => {
-    if (event.key === "Enter" && event.target.value) {
-      setTags([...tags, event.target.value]);
-      event.target.value = ""; // Clear the input
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("media", file);
+    formData.append("caption", caption);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/posts/create",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+      fetchPosts();
+      setFile(null);
+      setCaption("");
+    } catch (error) {
+      console.error("Error uploading post:", error);
     }
   };
 
-  const removeTag = (tag) => {
-    setTags(tags.filter((t) => t !== tag));
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/posts");
+      setPosts(response.data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log({ file, tags, caption });
-  };
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   return (
     <div className="home-container">
-      <div className="upload-card">
-        <h2>Share Your Coffee Design</h2>
-        <p>What have you been working on? Showcase your creativity!</p>
-        <form onSubmit={handleSubmit}>
-          <div className="upload-section">
-            <label htmlFor="file-upload" className="upload-label">
-              <span className="upload-icon">⬆</span>
-              <span>
-                {file ? file.name : "Upload an image or video (max 4MB)"}
-              </span>
-            </label>
+      {/* Upload Section */}
+      <div className="upload-section">
+        <div className="upload-header">
+          <img
+
+            src={user?.profileImage
+                  ? `http://localhost:5000/${user.profileImage}`
+                  : "https://via.placeholder.com/40"}
+            alt="User Avatar"
+            className="user-avatar"
+          />
+
+
+          <input
+            type="text"
+            className="upload-input"
+            placeholder={`What's on your mind, ${user?.username}?`}
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+          />
+        </div>
+        <div className="upload-actions">
+          <label htmlFor="file-upload" className="upload-action-item">
+            <i className="fas fa-image"></i>
+            <span>Photo/video</span>
             <input
               id="file-upload"
               type="file"
               onChange={handleFileChange}
               accept="image/*,video/*"
-              hidden
+              style={{ display: "none" }}
             />
-          </div>
+          </label>
+          <button type="submit" className="post-button" onClick={handleSubmit}>
+            Post
+          </button>
+        </div>
+      </div>
 
-
-
-          <div className="caption-section">
-            <textarea
-              placeholder="Write your caption here..."
-              value={caption}
-              onChange={(e) => setCaption(e.target.value)}
-            />
-          </div>
-
-          <div className="button-group">
-            <button type="submit" className="submit-button">
-              Share Now
-            </button>
-            <button type="button" className="draft-button">
-              Save as Draft
-            </button>
-          </div>
-        </form>
+      {/* Feed Section */}
+      <div className="feed-section">
+        {posts.map((post) => (
+          <PostCard
+            key={post._id}
+            avatar={post.userAvatar}
+            username={post.username}
+            timestamp={post.timestamp}
+            content={post.image}
+            caption={post.caption}
+            onLike={() => console.log(`Liked post ${post._id}`)}
+            onComment={() => console.log(`Comment on post ${post._id}`)}
+            onShare={() => console.log(`Share post ${post._id}`)}
+          />
+        ))}
       </div>
     </div>
   );

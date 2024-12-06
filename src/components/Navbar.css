@@ -5,7 +5,7 @@
   padding: 10px 20px;
   background: linear-gradient(90deg, #7f9cae, #4b6274); /* Subtle gradient */
   color: white;
-  height: 30px; /* Fixed height */
+
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -13,6 +13,7 @@
 
 .logo {
   font-size: 1.5rem;
+
   font-style: italic;
   font-family: 'Lora', serif; /* Elegant font for the logo */
 }
@@ -20,6 +21,7 @@
 .search-bar {
   display: flex;
   align-items: center;
+  gap: 10px;
   background: none; /* Transparent background */
   border: 2px solid #ffffff; /* White border */
   border-radius: 20px; /* Slightly less rounded */
@@ -44,7 +46,7 @@
 .search-button {
   border: none;
   outline: none;
-  background: linear-gradient(90deg, #87CEEB, #4682B4); /* Matching gradient to navbar */
+  background: linear-gradient(90deg, #7f9cae, #4b6274); /* Matching gradient to navbar */
   cursor: pointer;
   font-size: 14px; /* Smaller button size */
   color: #ffffff; /* White color for the icon */
@@ -58,4 +60,38 @@
 
 .search-button:hover {
   box-shadow: 0 0 5px rgba(255, 181, 232, 0.8); /* Subtle hover glow effect */
+}
+.auth-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-welcome {
+  font-size: 1rem;
+  color: #f0f0f0;
+}
+
+.logout-button,
+.login-link {
+  padding: 8px 15px;
+  border-radius: 8px;
+  background: white;
+  color: #4b6274;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover,
+.login-link:hover {
+  background-color: #e0e0e0;
+  color: #333;
 }

@@ -1,14 +1,19 @@
 .widgets {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    height: 100%;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
 
-  .widget-card {
-    background-color: #ffffff; /* White for widgets */
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    font-size: 0.9rem;
-  }
+.widget-card {
+  background: linear-gradient(90deg, #ffffff, #f9f9f9); /* Gradient to match sidebar */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #4b6274;
+  font-size: 0.95rem;
+}
+
+.widget-card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Slight hover shadow */
+}

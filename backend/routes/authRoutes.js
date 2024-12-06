@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs'); // For hashing passwords
 const jwt = require('jsonwebtoken'); // For generating JWT tokens
+const verifyToken = require("../middleware/verifyToken");
 const User = require('../models/User'); // User model
 const router = express.Router();
 
@@ -45,6 +46,8 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
+
+
     // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
@@ -74,6 +77,17 @@ router.post('/login', async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: 'Login failed', error: error.message });
+  }
+});
+router.get("/me", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch user", error: error.message });
   }
 });
 

@@ -1,37 +1,49 @@
 const express = require('express');
 const Post = require('../models/Post');
 const verifyToken = require('../middleware/verifyToken');
+const multer = require('multer');
 const router = express.Router();
 
-// Create a Post
-router.post('/', verifyToken, async (req, res) => {
+// Configure Multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Folder for storing uploads
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname); // Unique filename
+  },
+});
+
+const upload = multer({ storage });
+
+// Create a post with image/video
+router.post('/create', verifyToken, upload.single('media'), async (req, res) => {
   try {
-    const { image, caption, tags } = req.body;
+    const { caption, tags } = req.body;
 
     const newPost = new Post({
       userId: req.user.userId,
-      image,
+      image: req.file ? `/uploads/${req.file.filename}` : null, // Save uploaded file path or null
       caption,
-      tags,
+      tags: tags ? tags.split(',') : [],
     });
 
     const savedPost = await newPost.save();
-    res.status(201).json(savedPost);
+    res.status(201).json({ message: 'Post created successfully', post: savedPost });
   } catch (error) {
     res.status(500).json({ message: 'Failed to create post', error: error.message });
   }
 });
 
-//get post
+// Get all posts
 router.get('/', async (req, res) => {
   try {
-    const posts = await Post.find().populate('userId', 'username'); // Adjust as needed
+    const posts = await Post.find().populate('userId', 'username'); // Populate user details
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch posts', error: error.message });
   }
 });
-
 
 // Like a Post
 router.put('/:postId/like', verifyToken, async (req, res) => {
