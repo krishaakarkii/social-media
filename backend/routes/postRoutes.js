@@ -4,30 +4,30 @@ const verifyToken = require('../middleware/verifyToken');
 const multer = require('multer');
 const router = express.Router();
 
-// Configure Multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Folder for storing uploads
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname); // Unique filename
-  },
+
+
+// Multer Configuration
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => cb(null, 'uploads/'),
+    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
+  }),
+  limits: { fileSize: 10 * 1024 * 1024 }, // Set file size limit to 10 MB
 });
 
-const upload = multer({ storage });
-
-// Create a post with image/video
+// Post Create Route
 router.post('/create', verifyToken, upload.single('media'), async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'File too large or invalid file type' });
+    }
     const { caption, tags } = req.body;
-
     const newPost = new Post({
       userId: req.user.userId,
-      image: req.file ? `/uploads/${req.file.filename}` : null, // Save uploaded file path or null
+      image: `/uploads/${req.file.filename}`,
       caption,
       tags: tags ? tags.split(',') : [],
     });
-
     const savedPost = await newPost.save();
     res.status(201).json({ message: 'Post created successfully', post: savedPost });
   } catch (error) {
@@ -36,14 +36,17 @@ router.post('/create', verifyToken, upload.single('media'), async (req, res) => 
 });
 
 // Get all posts
+// Get all posts
 router.get('/', async (req, res) => {
   try {
-    const posts = await Post.find().populate('userId', 'username'); // Populate user details
+    // Populate userId to fetch user details like username and profileImage
+    const posts = await Post.find().populate('userId', 'username profileImage');
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch posts', error: error.message });
   }
 });
+
 
 // Like a Post
 router.put('/:postId/like', verifyToken, async (req, res) => {

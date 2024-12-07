@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 export const AuthContext = createContext();
 
@@ -10,34 +11,51 @@ const AuthProvider = ({ children }) => {
     if (token) {
       const fetchUser = async () => {
         try {
-          const response = await fetch('http://localhost:5000/auth/me', {
+          const response = await axios.get('http://localhost:5000/auth/me', {
             headers: { Authorization: `Bearer ${token}` },
           });
-          if (response.ok) {
-            const data = await response.json();
-            setUser(data);
-          } else {
-            console.error('Invalid token. Logging out.');
-            logout();
-          }
+          setUser(response.data);
         } catch (error) {
-          console.error('Failed to fetch user:', error);
+          if (error.response?.status === 401) {
+            console.error('Token expired. Logging out...');
+            logout();
+          } else {
+            console.error('Failed to fetch user:', error);
+          }
         }
       };
+
       fetchUser();
+
+      // Add Axios interceptor for token expiration
+      const axiosInterceptor = axios.interceptors.response.use(
+        (response) => response,
+        async (error) => {
+          if (error.response?.status === 401) {
+            console.error('Token expired. Logging out...');
+            logout();
+          }
+          return Promise.reject(error);
+        }
+      );
+
+      // Cleanup interceptor when token changes
+      return () => {
+        axios.interceptors.response.eject(axiosInterceptor);
+      };
     }
   }, [token]);
 
   const login = (newToken, userData) => {
-    localStorage.setItem('token', newToken);
-    setToken(newToken);
-    setUser(userData);
+    localStorage.setItem('token', newToken); // Save token in localStorage
+    setToken(newToken); // Update token in state
+    setUser(userData); // Set user data during login
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    setToken('');
-    setUser(null);
+    localStorage.removeItem('token'); // Clear token from localStorage
+    setToken(''); // Reset token in state
+    setUser(null); // Clear user data
   };
 
   return (

@@ -92,21 +92,21 @@ const Home = () => {
 
       {/* Feed Section */}
       <div className="feed-section">
-        {posts.map((post) => (
-          <PostCard
-          key={post._id}
-          avatar={
-            post.userId.profileImage
-              ? `http://localhost:5000/${user.profileImage}`
-              : "https://via.placeholder.com/40"
-          }
-          username={post.userId.username}
-          timestamp={new Date(post.createdAt).toLocaleString()}
-          content={post.image ? `http://localhost:5000/${post.image}` : ""}
-          caption={post.caption}
-        />
+      {posts.map((post) => (
+  <PostCard
+    key={post._id}
+    avatar={
+      post.userId?.profileImage
+        ? `http://localhost:5000/${post.userId.profileImage}`
+        : "https://via.placeholder.com/40"
+    }
+    username={post.userId?.username || "Unknown User"}
+    timestamp={new Date(post.createdAt).toLocaleString()}
+    content={post.image ? `http://localhost:5000/${post.image}` : ""}
+    caption={post.caption}
+  />
+))}
 
-        ))}
       </div>
     </div>
   );

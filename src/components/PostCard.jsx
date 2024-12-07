@@ -1,5 +1,5 @@
-import React from "react";
-import "./PostCard.css";
+import React from 'react';
+import './PostCard.css';
 
 const PostCard = ({ avatar, username, timestamp, content, caption }) => {
   return (
