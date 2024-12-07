@@ -12,7 +12,7 @@ const upload = multer({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
   }),
-  limits: { fileSize: 10 * 1024 * 1024 }, // Set file size limit to 10 MB
+  limits: { fileSize: 90 * 1024 * 1024 }, // Set file size limit to 10 MB
 });
 
 // Post Create Route

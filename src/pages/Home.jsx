@@ -10,15 +10,30 @@ const Home = () => {
   const [caption, setCaption] = useState('');
   const [posts, setPosts] = useState([]);
 
-  const handleFileChange = (event) => setFile(event.target.files[0]);
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    console.log("Selected file:", selectedFile); // Debugging log
+    setFile(selectedFile);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("Submit button clicked"); // Debugging log
+    console.log("Caption:", caption); // Debugging log
+    console.log("File:", file); // Debugging log
+
+    if (!file || !caption) {
+      console.error("File or caption is missing"); // Log if input is invalid
+      alert("Please add a file and caption before posting!");
+      return;
+    }
+
     const formData = new FormData();
     formData.append('media', file);
     formData.append('caption', caption);
 
     try {
+      console.log("Sending POST request to server..."); // Debugging log
       const response = await axios.post(
         'http://localhost:5000/api/posts/create',
         formData,
@@ -29,20 +44,24 @@ const Home = () => {
           },
         }
       );
+      console.log("Post created successfully:", response.data); // Debugging log
       setPosts([response.data.post, ...posts]); // Add new post to the top
       setFile(null);
       setCaption('');
     } catch (error) {
-      console.error('Error uploading post:', error.response?.data || error.message);
+      console.error("Error uploading post:", error.response?.data || error.message); // Debugging log
+      alert("Failed to upload the post. Please try again.");
     }
   };
 
   const fetchPosts = async () => {
+    console.log("Fetching posts from the server..."); // Debugging log
     try {
       const response = await axios.get('http://localhost:5000/api/posts');
+      console.log("Posts fetched successfully:", response.data); // Debugging log
       setPosts(response.data);
     } catch (error) {
-      console.error('Error fetching posts:', error.response?.data || error.message);
+      console.error("Error fetching posts:", error.response?.data || error.message); // Debugging log
     }
   };
 
@@ -92,21 +111,20 @@ const Home = () => {
 
       {/* Feed Section */}
       <div className="feed-section">
-      {posts.map((post) => (
-  <PostCard
-    key={post._id}
-    avatar={
-      post.userId?.profileImage
-        ? `http://localhost:5000/${post.userId.profileImage}`
-        : "https://via.placeholder.com/40"
-    }
-    username={post.userId?.username || "Unknown User"}
-    timestamp={new Date(post.createdAt).toLocaleString()}
-    content={post.image ? `http://localhost:5000/${post.image}` : ""}
-    caption={post.caption}
-  />
-))}
-
+        {posts.map((post) => (
+          <PostCard
+            key={post._id}
+            avatar={
+              post.userId?.profileImage
+                ? `http://localhost:5000/${post.userId.profileImage}`
+                : "https://via.placeholder.com/40"
+            }
+            username={post.userId?.username || "Unknown User"}
+            timestamp={new Date(post.createdAt).toLocaleString()}
+            content={post.image ? `http://localhost:5000/${post.image}` : ""}
+            caption={post.caption}
+          />
+        ))}
       </div>
     </div>
   );
