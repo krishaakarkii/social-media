@@ -15,10 +15,10 @@ const AuthProvider = ({ children }) => {
           });
           if (response.ok) {
             const data = await response.json();
-            setUser(data); // Set the user data if the token is valid
+            setUser(data);
           } else {
-            console.error('Failed to fetch user: Invalid token');
-            logout(); // Clear invalid token and user data
+            console.error('Invalid token. Logging out.');
+            logout();
           }
         } catch (error) {
           console.error('Failed to fetch user:', error);
@@ -29,19 +29,19 @@ const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = (newToken, userData) => {
-    localStorage.setItem('token', newToken); // Save token in localStorage
-    setToken(newToken); // Update token in state
-    setUser(userData); // Set user data during login
+    localStorage.setItem('token', newToken);
+    setToken(newToken);
+    setUser(userData);
   };
 
   const logout = () => {
-    localStorage.removeItem('token'); // Clear token from localStorage
-    setToken(''); // Reset token in state
-    setUser(null); // Clear user data
+    localStorage.removeItem('token');
+    setToken('');
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, setUser }}>
+    <AuthContext.Provider value={{ user, token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
