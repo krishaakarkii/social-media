@@ -3,7 +3,8 @@ Sure, here's your README.md formatted content:
 ```markdown
 # Social Circle - MERN Stack Social Media App
 
-Social Circle is a full-stack web application built using the MERN stack (MongoDB, Express.js, React, and Node.js). This project serves as a learning endeavor for full-stack development and includes features such as user authentication, post creation, and profile management.
+Social Circle is a full-stack web application built using the MERN stack (MongoDB, Express.js, React, and Node.js).
+This project serves as a learning endeavor for full-stack development and includes features such as user authentication, post creation, and profile management.
 
 All rights belong to Krisha Karki.
 
@@ -26,20 +27,20 @@ This project enables users to:
 
 ## Screenshots
 - Login Page
-  ![Login Page](./screenshots/login.png)
+  ![Login Page](screenshots/login.png)
 
 - Feed/Home Page
-  ![Home Page](./screenshots/home.png)
+  ![Home Page](screenshots/home.png)
 
 - Message Page
 
 - Explore Page
 
 - User Profile
-  ![Profile Page](./screenshots/profile.png)
+  ![Profile Page](screenshots/profile.png)
 
 - Profile Settings
-  ![Settings Page](./screenshots/settings.png)
+  ![Settings Page](screenshots/settings.png)
 
 
 ## Features
